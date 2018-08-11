@@ -4,7 +4,10 @@
   "description": "Web client for 'enjoy' app server",
   "main": "index.js",
   "dependencies": {
-    "react": "^16.4.2"
+    "create-react-app": "^1.5.2",
+    "react": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "webpack": "^4.16.5"
   },
   "scripts": {
     "test": "decide_later"
