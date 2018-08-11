@@ -27,7 +27,7 @@ create: checkvenv
 
 destroy: checkvenv
 	@echo "DESTROY"
-	@read -p "Are you sure [y/n]: " a && test ! "\$a" = "y" -o "\$a" = "Y" || exit 1
+#	@read -p "Are you sure [y/n]: " a && test ! "\$a" = "y" -o "\$a" = "Y" || exit 1
 	test ! -d "$(BASE_ENV)/$(NAME_ENV)" || rm -rf "$(BASE_ENV)/$(NAME_ENV)"
 
 recreate: destroy create
