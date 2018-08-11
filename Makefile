@@ -18,7 +18,7 @@ create: checkvenv
 
 build:
 	. '$(BASE_ENV)/$(NAME_ENV)/bin/activate' \
-	    && npm install -g npm && npm install
+	    && npm install -g npm && npm install -g yarn && yarn install
 	@echo
 	@echo "Activate the VENV typing on terminal:"
 	@echo ". $(BASE_ENV)/$(NAME_ENV)/bin/activate"
@@ -26,7 +26,7 @@ build:
 
 begin:
 	. '$(BASE_ENV)/$(NAME_ENV)/bin/activate' \
-	    && npm install -g create-react-app@1.5.2
+	    && yarn global add create-react-app@1.5.2
 
 destroy: checkvenv
 #	@read -p "Are you sure [y/n]: " a && test ! "\$a" = "y" -o "\$a" = "Y" || exit 1

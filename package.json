@@ -4,13 +4,20 @@
   "description": "Web client for 'enjoy' app server",
   "main": "index.js",
   "dependencies": {
+    "create-react-app": "^1.5.2",
     "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
+    "react-scripts": "^1.1.4",
     "redux": "^4.0.0",
     "webpack": "^4.16.5"
   },
   "scripts": {
-    "test": "decide_later"
+    "test": "decide_later",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
