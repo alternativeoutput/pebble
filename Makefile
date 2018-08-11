@@ -1,19 +1,35 @@
 BASE_ENV=$(HOME)/.virtualenvs
-NAME_ENV=djchan
+NAME_ENV=yojne
 
-create:
+checkvenv:
+	@test -z "$(VIRTUAL_ENV)" || ( echo ; \
+            echo "Virtualenv '$(shell basename "$(VIRTUAL_ENV)")' is activated, deactivate before proceeding" \
+            ; echo ; false )
+
+
+create: checkvenv
 	@echo "CREATE"
 	@test ! -d "$(BASE_ENV)/$(NAME_ENV)" \
 || ( echo "Virtualenv '$(BASE_ENV)/$(NAME_ENV)' already exists" ; false )
 	python3 -m virtualenv -p /usr/bin/python3.5 '$(BASE_ENV)/$(NAME_ENV)'
-	. '$(BASE_ENV)/$(NAME_ENV)/bin/activate' && pip install --upgrade pip
+	. '$(BASE_ENV)/$(NAME_ENV)/bin/activate' \
+	    && pip install --upgrade pip \
+	    && pip install -r requirements.txt \
+	    && nodeenv -p
+	. '$(BASE_ENV)/$(NAME_ENV)/bin/activate' \
+	    && npm install -g npm && npm install
+
+	@echo
+	@echo "Activate the VENV typing on terminal:"
+	@echo ". $(BASE_ENV)/$(NAME_ENV)/bin/activate"
+	@echo
 
 
-destroy:
+destroy: checkvenv
 	@echo "DESTROY"
-	deactivate || true
+	@read -p "Are you sure [y/n]: " a && test ! "\$a" = "y" -o "\$a" = "Y" || exit 1
 	test ! -d "$(BASE_ENV)/$(NAME_ENV)" || rm -rf "$(BASE_ENV)/$(NAME_ENV)"
 
 recreate: destroy create
 
-.PHONY: create destroy recreate
+.PHONY: checkvenv create destroy recreate
