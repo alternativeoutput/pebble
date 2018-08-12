@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Table from './Table';
-import User from './User';
 
 import logo from './logo.svg';
 import './App.css';
@@ -17,9 +16,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <div>
-          <Table name="Tavolo 1">
-            <User name="Agostino"/>
-          </Table>
+          <Table name="Tavolo 1"/>
         </div>
       </div>
     );
