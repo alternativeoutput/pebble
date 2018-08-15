@@ -2,7 +2,7 @@ import React from 'react';
 
 class User extends React.Component {
     render() {
-        return (<div className="User">USER: {this.props.name}</div>);
+        return (<div className="User">User: {this.props.name}</div>);
     }
 }
 

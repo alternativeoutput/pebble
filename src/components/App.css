@@ -27,3 +27,10 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+div.Table {
+    border: 1px solid gray;
+    display: inline-block;
+    margin: 8px;
+    padding: 8px;
+}

@@ -7,7 +7,7 @@ const mapStateToProps = state => {
 };
 
 const ConnectedTable = ({ table }) => (
-        <div className="Table">TABLE: {table.name}<div>
+        <div className="Table"><strong>Table: {table.name}</strong><div>
             {table.users.map(x => (<User {...x}/>))}
     </div></div>);
 
