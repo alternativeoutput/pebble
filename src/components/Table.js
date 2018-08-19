@@ -1,15 +1,34 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 import User from './User';
+import bindIndexToActionCreators from '../store/bindIndexToActionCreators'
+import { wakeupUser } from '../reducers/User'
 
-const mapStateToProps = state => {
-    return { "table": state.table };
-};
+const mapStateToProps = state => (
+    { "table": state.table })
 
-const ConnectedTable = ({ table }) => (
-        <div className="Table"><strong>Table: {table.name}</strong><div>
-            {table.users.map(x => (<User {...x}/>))}
-    </div></div>);
+const userDispatchProperties =
+  index =>
+    dispatch => bindActionCreators(
+        bindIndexToActionCreators({wakeupUser}, index),
+      dispatch)
+
+
+
+class ConnectedTable extends Component {
+    render() {
+        let table = this.props.table;
+
+        return (
+                <div className="container">
+                <strong>Table: {table.name}</strong>
+                <table className="tableComponent"><tbody>
+                {table.users.map((x, index) => (<User {...userDispatchProperties(index)(this.props.dispatch)} {...x}/>))}
+            </tbody></table></div>);
+    }
+}
 
 const Table = connect(mapStateToProps)(ConnectedTable);
 export default Table;

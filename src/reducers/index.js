@@ -33,18 +33,16 @@ function copy_app(app)
 }
 
 const rootReducer = (state = initialState, action) => {
+    console.log(action);
     switch (action.type) {
     case WAKEUP_USER:
         let new_state = copy_app(state);
+        // let wakedup_user = state.table.users[action.index];
 
-        for (let i = 0 ; i < state.table.users.length ; i++) {
-            if (new_state.table.users[i].k === action.payload.key) {
-                new_state.table.users = [...state.table.users.slice(0, i),
-                                         ...state.table.users.slice(i + 1)];
-                break;
-            }
-        }
-
+        new_state.table.users = [
+                ...state.table.users.slice(0, action.index),
+                ...state.table.users.slice(action.index + 1)];
+        console.log("TODO MOVE TO WAKED_UP");
         return new_state;
     default:
         return state;
@@ -52,4 +50,4 @@ const rootReducer = (state = initialState, action) => {
 };
 
 export default rootReducer;
-export const wakeupUser = user => ({ type: WAKEUP_USER, payload: user });
+export const wakeupUser = user => ({ type: WAKEUP_USER });
