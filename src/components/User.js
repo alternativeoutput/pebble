@@ -5,11 +5,20 @@ const mapStateToProps = state => (
     { "props": state });
 
 class ConnectedUser extends Component {
+    constructor() {
+        super();
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(event) {
+        this.props.wakeupUser();
+    }
+
     render() {
         let user = this.props;
 
         return (<tr><td>User: {user.name}</td>
-                <td><button onClick={user.wakeupUser}>Wake Up</button></td></tr>);
+                <td><button onClick={this.handleClick}>Wake Up</button></td></tr>);
     }
 }
 
