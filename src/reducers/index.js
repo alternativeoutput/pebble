@@ -2,9 +2,9 @@
 import { WAKEUP_USER } from "../constants/action-types";
 const initialState = {
     'table': {'name': 'TabOne',
-              'users': [{'name': 'Alexander', 'k': 'azz', 'key': 'azz'},
-                        {'name': 'Markus', 'k': 'izz', 'key': 'izz'},
-                        {'name': 'Rudolph', 'k': 'uzz', 'key': 'uzz'}]
+              'users': [{'name': 'Alexander', 'key': 'azz'},
+                        {'name': 'Markus', 'key': 'izz'},
+                        {'name': 'Rudolph', 'key': 'uzz'}]
              },
     'standup': {'title': "StandUp", 'users': []}
 };
