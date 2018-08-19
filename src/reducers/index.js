@@ -1,5 +1,5 @@
 // src/js/reducers/index.js
-import { WAKEUP_USER } from "../constants/action-types";
+import { ADD_USER, WAKEUP_USER } from "../constants/action-types";
 const initialState = {
     'table': {'name': 'TabOne',
               'users': [{'name': 'Alexander', 'key': 'azz'},
@@ -33,10 +33,17 @@ function copy_app(app)
 }
 
 const rootReducer = (state = initialState, action) => {
+    let new_state;
     console.log(action);
     switch (action.type) {
+    case ADD_USER:
+        new_state = copy_app(state);
+
+        new_state.table.users.push(action.user);
+        return new_state;
+
     case WAKEUP_USER:
-        let new_state = copy_app(state);
+        new_state = copy_app(state);
         // let wakedup_user = state.table.users[action.index];
 
         new_state.table.users = [

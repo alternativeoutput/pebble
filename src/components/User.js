@@ -11,6 +11,7 @@ class ConnectedUser extends Component {
     }
 
     handleClick(event) {
+        event.preventDefault();
         this.props.wakeupUser();
     }
 
