@@ -36,12 +36,13 @@ class ConnectedTable extends Component {
     handleClick(event) {
         event.preventDefault();
         let name = this.new_user_name.value;
+        this.new_user_name.value = "";
 
         if (name === "") {
             alert("User name is empty");
             return false;
         }
-        this.props.addUser({'name': this.new_user_name.value, 'key': uuidv4()});
+        this.props.addUser({'name': name, 'key': uuidv4()});
     }
 
     render() {
