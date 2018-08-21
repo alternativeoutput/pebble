@@ -9,7 +9,8 @@ import { wakeupUser } from '../reducers/User'
 import { v4 as uuidv4 } from 'uuid'
 
 const mapStateToProps = state => (
-    { "table": state.table })
+    { "user": state.user,
+      "table": state.table })
 
 function mapDispatchToProps(dispatch, props) {
     return {
@@ -42,21 +43,28 @@ class ConnectedTable extends Component {
             alert("User name is empty");
             return false;
         }
-        this.props.addUser({'name': name, 'key': uuidv4()});
+        let uu = uuidv4();
+        this.props.addUser({name: name, _id: uu, key: uu});
     }
 
     render() {
         let table = this.props.table;
+        let user = this.props.user;
         let adder = "";
 
-        if (table.users.length < 5) {
+        if (table.user.length < 5) {
             adder = (<div>Name: <input type="text" ref={new_user_name => (this.new_user_name = new_user_name)}/>&nbsp;<button onClick={this.handleClick}>Add User</button></div>);
         }
         return (
                 <div className="container">
                 <strong>Table: {table.name}</strong>
                 <table className="tableComponent"><tbody>
-                {table.users.map((x, index) => (<User {...userDispatchProperties(index)(this.props.dispatch)} {...x}/>))}
+                {
+                    table.user.map((_id, index) => (
+                            <User
+                        {...userDispatchProperties(index)(this.props.dispatch)}
+                        {...user.filter((item) => (
+                            item._id === _id))[0]}/>)) }
             </tbody></table>{adder}</div>);
     }
 }
