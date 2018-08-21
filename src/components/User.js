@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { wakeupUser } from '../reducers/User';
 
 const mapStateToProps = state => (
     { "props": state });
@@ -12,7 +13,7 @@ class ConnectedUser extends Component {
 
     handleClick(event) {
         event.preventDefault();
-        this.props.wakeupUser();
+        (this.props.wakeupUser === undefined ? wakeupUser() : this.props.wakeupUser());
     }
 
     render() {

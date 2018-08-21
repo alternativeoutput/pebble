@@ -50,7 +50,7 @@ class ConnectedTable extends Component {
         let adder = "";
 
         if (table.users.length < 5) {
-            adder = (<div>Name: <input type="text" ref={new_user_name => (this.new_user_name = new_user_name)}/>&nbsp;<button onClick={this.handleClick}>Add New User</button></div>);
+            adder = (<div>Name: <input type="text" ref={new_user_name => (this.new_user_name = new_user_name)}/>&nbsp;<button onClick={this.handleClick}>Add User</button></div>);
         }
         return (
                 <div className="container">
