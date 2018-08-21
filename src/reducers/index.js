@@ -1,43 +1,43 @@
 // src/js/reducers/index.js
 import { ADD_USER, WAKEUP_USER } from "../constants/action-types";
 const initialState = {
-    'user': [{name: 'Alexander', _id: 'azz', key: 'azz'},
-             {name: 'Markus',    _id: 'izz', key: 'izz'},
-             {name: 'Rudolph',   _id: 'uzz', key: 'uzz'}],
-    'table': {name: 'TabOne',
-              'user': ['azz', 'izz', 'uzz']
-             },
-    'standup': {'title': "StandUp",
-                'user': []}
+    user: [{name: 'Alexander', _id: 'azz', key: 'azz'},
+           {name: 'Markus',    _id: 'izz', key: 'izz'},
+           {name: 'Rudolph',   _id: 'uzz', key: 'uzz'}],
+    table: {name: 'TabOne',
+            user: ['azz', 'izz', 'uzz']
+           },
+    standup: {title: "StandUp",
+              user: []}
 };
 
 function copy_user(user)
 {
-    return { 'name': user.name,
-            '_id': user._id,
-             'key': user.key
+    return { name: user.name,
+             _id: user._id,
+             key: user.key
            };
 }
 
 function copy_table(table)
 {
-    return { 'name': table.name,
-             'user': table.user.slice()
+    return { name: table.name,
+             user: table.user.slice()
            };
 }
 
 function copy_standup(standup)
 {
-    return { 'title': standup.title,
-             'user': standup.user.slice()
+    return { title: standup.title,
+             user: standup.user.slice()
            }
 }
 
 function copy_app(app)
 {
-    return {'user': app.user.map(x => copy_user(x)),
-            'table': copy_table(app.table),
-            'standup': copy_standup(app.standup)};
+    return {user: app.user.map(x => copy_user(x)),
+            table: copy_table(app.table),
+            standup: copy_standup(app.standup)};
 }
 
 const rootReducer = (state = initialState, action) => {

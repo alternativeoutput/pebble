@@ -9,8 +9,8 @@ import { wakeupUser } from '../reducers/User'
 import { v4 as uuidv4 } from 'uuid'
 
 const mapStateToProps = state => (
-    { "user": state.user,
-      "table": state.table })
+    { user: state.user,
+      table: state.table })
 
 function mapDispatchToProps(dispatch, props) {
     return {
