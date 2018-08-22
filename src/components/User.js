@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { wakeupUser } from '../reducers/User';
 
 const mapStateToProps = state => (
-    { props: state });
+    {});
 
 class ConnectedUser extends Component {
     constructor() {
