@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch, props) {
 const userDispatchProperties =
   index =>
     dispatch => bindActionCreators(
-        bindIndexToActionCreators({wakeupUser}, index),
+        bindIndexToActionCreators({wakeupUser}, "index", index),
       dispatch)
 
 

@@ -6,16 +6,16 @@ const transformObjectValues = (obj, fn) => {
   return transformed
 }
 
-const bindActionCreator = (actionCreator, index) =>
-  (...args) => Object.assign(actionCreator(...args), { index })
+const bindActionCreator = (actionCreator, name, index) =>
+      (...args) => { let add = {}; add[name] = index; return Object.assign(actionCreator(...args), add); }
 
-const bindActionCreatorMap = (creators, index) =>
-  transformObjectValues(creators, actionCreator => bindActionCreator(actionCreator, index))
+const bindActionCreatorMap = (creators, name, index) =>
+      transformObjectValues(creators, actionCreator => bindActionCreator(actionCreator, name, index))
 
-const bindIndexToActionCreators = (actionCreators, index) => {
-  return typeof actionCreators === 'function'
-    ? bindActionCreator(actionCreators, index)
-    : bindActionCreatorMap(actionCreators, index)
+const bindIndexToActionCreators = (actionCreators, name, index) => {
+    return typeof actionCreators === 'function'
+        ? bindActionCreator(actionCreators, name, index)
+        : bindActionCreatorMap(actionCreators, name, index)
 }
 
 export default bindIndexToActionCreators
