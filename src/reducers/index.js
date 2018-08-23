@@ -1,9 +1,9 @@
 // src/js/reducers/index.js
 import { ADD_USER, WAKEUP_USER } from "../constants/action-types";
 const initialState = {
-    user: [{name: 'Alexander', _id: 'azz', key: 'azz'},
-           {name: 'Markus',    _id: 'izz', key: 'izz'},
-           {name: 'Rudolph',   _id: 'uzz', key: 'uzz'}],
+    user: {'azz': {name: 'Alexander', _id: 'azz', key: 'azz'},
+           'izz': {name: 'Markus',    _id: 'izz', key: 'izz'},
+           'uzz': {name: 'Rudolph',   _id: 'uzz', key: 'uzz'}},
     table: {name: 'TabOne',
             user: ['azz', 'izz', 'uzz']
            },
@@ -17,6 +17,14 @@ function copy_user(user)
              _id: user._id,
              key: user.key
            };
+}
+
+function copytbl(tbl, copy_el)
+{
+    return Object.keys(tbl).reduce(function(previous, current) {
+        previous[current] = copy_el(tbl[current]);
+        return previous;
+    }, {});
 }
 
 function copy_table(table)
@@ -35,7 +43,7 @@ function copy_standup(standup)
 
 function copy_app(app)
 {
-    return {user: app.user.map(x => copy_user(x)),
+    return {user: copytbl(app.user, copy_user),
             table: copy_table(app.table),
             standup: copy_standup(app.standup)};
 }
@@ -47,8 +55,7 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type) {
     case ADD_USER:
         new_state = copy_app(state);
-
-        new_state.user.push(action.user);
+        new_state.user[action.user._id] = copy_user(action.user);
         new_state.table.user.push(action.user._id);
         return new_state;
 

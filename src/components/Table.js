@@ -8,7 +8,7 @@ import { wakeupUser } from '../reducers/Table'
 import { v4 as uuidv4 } from 'uuid'
 
 const mapStateToProps = state => (
-    { user: state.user,
+    { user_tbl: state.user,
       table: state.table })
 
 function mapDispatchToProps(dispatch, props) {
@@ -39,8 +39,8 @@ class ConnectedTable extends Component {
     }
 
     render() {
+        let user_tbl = this.props.user_tbl;
         let table = this.props.table;
-        let user = this.props.user;
         let adder = "";
 
         if (table.user.length < 5) {
@@ -50,14 +50,15 @@ class ConnectedTable extends Component {
                 <div className="container">
                 <strong>Table: {table.name}</strong>
                 <table className="tableComponent"><tbody>
-                {
-                    table.user.map((_id, index) => (
-                            <User
-                        {...(this.props.wakeupUser !== undefined ? this.props.wakeupUser : wakeupUser)(index)}
-                        {...user.filter((item) => (
-                            item._id === _id))[0]}/>)) }
-            </tbody></table>{adder}</div>);
-    }
+                { table.user.map(
+                    (_id, index) =>
+                        (<User
+                         {...(this.props.wakeupUser !== undefined ? this.props.wakeupUser : wakeupUser)(index)}
+                         {...user_tbl[_id]}/>
+                        )
+                ) }
+            </tbody></table>{adder}<hr/><br/></div>);
+        }
 }
 
 const Table = connect(mapStateToProps, mapDispatchToProps)(ConnectedTable);
