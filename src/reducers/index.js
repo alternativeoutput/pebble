@@ -4,9 +4,10 @@ const initialState = {
     user: {'azz': {name: 'Alexander', _id: 'azz', key: 'azz'},
            'izz': {name: 'Markus',    _id: 'izz', key: 'izz'},
            'uzz': {name: 'Rudolph',   _id: 'uzz', key: 'uzz'}},
-    table: {name: 'TabOne',
-            user: ['azz', 'izz', 'uzz']
-           },
+    table: [{name: 'TabOne', user: [], key: "tazz"},
+            {name: 'TabTwo', user: ['azz', 'izz', 'uzz'], key: "tizz"},
+            {name: 'TabThree', user: [], key: "tuzz"}
+           ],
     standup: {title: "StandUp",
               user: []}
 };
@@ -44,7 +45,7 @@ function copy_standup(standup)
 function copy_app(app)
 {
     return {user: copytbl(app.user, copy_user),
-            table: copy_table(app.table),
+            table: app.table.map((el) => (copy_table(el))),
             standup: copy_standup(app.standup)};
 }
 
