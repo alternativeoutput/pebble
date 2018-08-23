@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from './components/Table';
-import { addUser } from './reducers/Table'
+import { addUser } from './reducers/index'
 import { wakeupUser } from './reducers/index'
 import './App.css';
 
@@ -23,7 +23,7 @@ class ConnectedApp extends Component {
                         (<Table
                          {...this.props.table[index]}
                          wakeupUser={wakeupUser(index)}
-                         addUser={addUser}
+                         addUser={addUser(index)}
                          />
                         ))
                 }

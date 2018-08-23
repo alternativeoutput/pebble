@@ -2,6 +2,7 @@
 import { ADD_USER, WAKEUP_USER } from "../constants/action-types";
 import { bindActionAttrs } from '../store/bindIndexToActionCreators'
 import { wakeupUser as wakeupUser_table} from "./Table"
+import { addUser as addUser_table} from "./Table"
 
 const initialState = {
     user: {'azz': {name: 'Alexander', _id: 'azz', key: 'azz'},
@@ -57,13 +58,11 @@ const rootReducer = (state = initialState, action) => {
     console.log('root reducer');
     console.log(action);
     switch (action.type) {
-        /*
-          case ADD_USER:
-          new_state = copy_app(state);
+    case ADD_USER:
+        new_state = copy_app(state);
         new_state.user[action.user._id] = copy_user(action.user);
-        new_state.table.user.push(action.user._id);
+        new_state.table[action.table_idx].user.push(action.user._id);
         return new_state;
-        */
     case WAKEUP_USER:
         new_state = copy_app(state);
         
@@ -84,4 +83,7 @@ const rootReducer = (state = initialState, action) => {
 export default rootReducer;
 export const wakeupUser = (index) => {
     return (subidx) => (() => { return bindActionAttrs(wakeupUser_table(subidx)(), "table_idx", index); })
+}
+export const addUser = (index) => {
+    return (user) => (bindActionAttrs(addUser_table(user), "table_idx", index));
 }

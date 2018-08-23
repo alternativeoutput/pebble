@@ -10,14 +10,6 @@ import { v4 as uuidv4 } from 'uuid'
 const mapStateToProps = state => (
     { user_tbl: state.user })
 
-function mapDispatchToProps(dispatch, props) {
-    return {
-        dispatch,
-            ...bindActionCreators({
-                addUser
-            }, dispatch)};
-}
-
 class ConnectedTable extends Component {
     constructor() {
         super();
@@ -34,7 +26,11 @@ class ConnectedTable extends Component {
             return false;
         }
         let uu = uuidv4();
-        this.props.addUser({name: name, _id: uu, key: uu});
+        this.props.dispatch(
+            (this.props.addUser === undefined ?
+             addUser :
+             this.props.addUser)({name: name, _id: uu, key: uu})
+        );
     }
 
     render() {
@@ -64,5 +60,5 @@ class ConnectedTable extends Component {
         }
 }
 
-const Table = connect(mapStateToProps, mapDispatchToProps)(ConnectedTable);
+const Table = connect(mapStateToProps)(ConnectedTable);
 export default Table;
