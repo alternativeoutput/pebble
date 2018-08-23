@@ -15,17 +15,18 @@ class ConnectedUser extends Component {
 
     handleClick(event) {
         event.preventDefault();
+        console.log("this.wakeupUser");
+        console.log(this.wakeupUser);
         this.wakeupUser();
     }
 
     render() {
-        let user = this.props;
-
         this.wakeupUser = bindActionCreators(
-            (this.props.wakeupUser === undefined ? wakeupUser : this.props.wakeupUser),
+            (this.props.wakeupUser === undefined ? wakeupUser :
+             this.props.wakeupUser),
             this.props.dispatch);
-
-        return (<tr><td>User: {user.name}</td>
+        
+        return (<tr><td>User: {this.props.name}</td>
                 <td><button onClick={this.handleClick}>Wake Up</button></td></tr>);
     }
 }

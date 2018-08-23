@@ -46,6 +46,8 @@ class ConnectedTable extends Component {
         if (user.length < 5) {
             adder = (<div>Name: <input type="text" ref={new_user_name => (this.new_user_name = new_user_name)}/>&nbsp;<button onClick={this.handleClick}>Add User</button></div>);
         }
+        console.log('From Table');
+        console.log(this.props.wakeupUser);
         return (
                 <div className="container">
                 <strong>Table: {name}</strong>
@@ -53,7 +55,8 @@ class ConnectedTable extends Component {
                 { user.map(
                     (_id, index) =>
                         (<User
-                         {...(this.props.wakeupUser !== undefined ? this.props.wakeupUser : wakeupUser)(index)}
+                         wakeupUser={(this.props.wakeupUser === undefined ?
+                                      wakeupUser : this.props.wakeupUser)(index)}
                          {...user_tbl[_id]}/>
                         )
                 ) }

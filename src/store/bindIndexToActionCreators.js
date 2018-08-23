@@ -6,8 +6,19 @@ const transformObjectValues = (obj, fn) => {
   return transformed
 }
 
-const bindActionCreator = (actionCreator, name, index) =>
-      (...args) => { let add = {}; add[name] = index; return Object.assign(actionCreator(...args), add); }
+export const bindActionAttrs = (args, name, index) => {
+    let add = {};
+    add[name] = index;
+    return Object.assign(args, add);
+}
+
+export const bindActionCreator = (actionCreator, name, index) =>
+    (...args) => {
+        console.log(actionCreator);
+        let add = {};
+        add[name] = index;
+        return Object.assign(actionCreator(...args), add);
+    }
 
 const bindActionCreatorMap = (creators, name, index) =>
       transformObjectValues(creators, actionCreator => bindActionCreator(actionCreator, name, index))

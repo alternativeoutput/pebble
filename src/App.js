@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from './components/Table';
 import { addUser } from './reducers/Table'
-
+import { wakeupUser } from './reducers/index'
 import './App.css';
 
 const mapStateToProps = state => (
@@ -19,9 +19,12 @@ class ConnectedApp extends Component {
                 </header>
                 <div>
                 {this.props.table.map(
-                    (table, tindex) =>
-                        (<Table {...this.props.table[tindex]}
-                         addUser={addUser}/>
+                    (table, index) =>
+                        (<Table
+                         {...this.props.table[index]}
+                         wakeupUser={wakeupUser(index)}
+                         addUser={addUser}
+                         />
                         ))
                 }
             </div></div>);
