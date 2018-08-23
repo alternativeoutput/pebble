@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import User from './User';
-import bindIndexToActionCreators from '../store/bindIndexToActionCreators'
 import { addUser } from '../reducers/Table'
 import { wakeupUser } from '../reducers/Table'
 
@@ -43,17 +42,6 @@ class ConnectedTable extends Component {
         let table = this.props.table;
         let user = this.props.user;
         let adder = "";
-        let wakeupUser_used = (this.props.wakeupUser !== undefined ? this.props.wakeupUser : wakeupUser);
-
-        const userDispatchProperties =
-              (index) => (
-                  (dispatch) => (
-                      bindActionCreators(
-                          wakeupUser_used(index),
-                          dispatch
-                      )
-                  )
-              )
 
         if (table.user.length < 5) {
             adder = (<div>Name: <input type="text" ref={new_user_name => (this.new_user_name = new_user_name)}/>&nbsp;<button onClick={this.handleClick}>Add User</button></div>);
@@ -65,7 +53,7 @@ class ConnectedTable extends Component {
                 {
                     table.user.map((_id, index) => (
                             <User
-                        {...userDispatchProperties(index)(this.props.dispatch)}
+                        {...(this.props.wakeupUser !== undefined ? this.props.wakeupUser : wakeupUser)(index)}
                         {...user.filter((item) => (
                             item._id === _id))[0]}/>)) }
             </tbody></table>{adder}</div>);
