@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import User from './User';
 import bindIndexToActionCreators from '../store/bindIndexToActionCreators'
 import { addUser } from '../reducers/Table'
-import { wakeupUser as wakeupUserOrig } from '../reducers/User'
+import { wakeupUser } from '../reducers/Table'
 
 import { v4 as uuidv4 } from 'uuid'
 
@@ -19,9 +19,6 @@ function mapDispatchToProps(dispatch, props) {
                 addUser
             }, dispatch)};
 }
-
-export const wakeupUser = (index) => (
-    bindIndexToActionCreators({wakeupUser: wakeupUserOrig}, "index", index));
 
 class ConnectedTable extends Component {
     constructor() {
