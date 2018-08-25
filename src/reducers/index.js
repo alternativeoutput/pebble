@@ -3,6 +3,10 @@ import { ADD_USER, WAKEUP_USER } from "../constants/action-types";
 import { bindActionAttrs } from '../store/bindIndexToActionCreators'
 import { wakeupUser as wakeupUser_table} from "./Table"
 import { addUser as addUser_table} from "./Table"
+import table_comp_reducer from "./Table"
+
+import { copy_table } from "./Table"
+import { copy_user } from "./User"
 
 const initialState = {
     user: {'azz': {name: 'Alexander', _id: 'azz', key: 'azz'},
@@ -16,27 +20,12 @@ const initialState = {
               user: []}
 };
 
-function copy_user(user)
-{
-    return { name: user.name,
-             _id: user._id,
-             key: user.key
-           };
-}
-
 function copytbl(tbl, copy_el)
 {
     return Object.keys(tbl).reduce(function(previous, current) {
         previous[current] = copy_el(tbl[current]);
         return previous;
     }, {});
-}
-
-function copy_table(table)
-{
-    return { name: table.name,
-             user: table.user.slice()
-           };
 }
 
 function copy_standup(standup)
@@ -55,24 +44,27 @@ function copy_app(app)
 
 const rootReducer = (state = initialState, action) => {
     let new_state;
+    let table, new_table;
+
     console.log('root reducer');
     console.log(action);
     switch (action.type) {
     case ADD_USER:
         new_state = copy_app(state);
-        new_state.user[action.user._id] = copy_user(action.user);
-        new_state.table[action.table_idx].user.push(action.user._id);
+        table = state.table[action.table_idx]
+        new_table = new_state.table[action.table_idx]
+        table_comp_reducer(state, new_state, table, new_table, action);
+
         return new_state;
     case WAKEUP_USER:
         new_state = copy_app(state);
         
-        let table = state.table[action.table_idx]
-        let table_new = new_state.table[action.table_idx]
+        table = state.table[action.table_idx]
+        new_table = new_state.table[action.table_idx]
 
         // let wakedup_user = table.user[action.index];
-        table_new.user = [
-                ...table.user.slice(0, action.index),
-                ...table.user.slice(action.index + 1)];
+        table_comp_reducer(state, new_state, table, new_table, action);
+
         console.log("TODO MOVE TO WAKED_UP");
         return new_state;
     default:

@@ -9,4 +9,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     return state
 }
 
+export function copy_user(user)
+{
+    return { name: user.name,
+             _id: user._id,
+             key: user.key
+           };
+}
+
 export default reducer
