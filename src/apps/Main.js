@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Table from './components/Table';
-import { addUser } from './reducers/index'
-import { wakeupUser } from './reducers/index'
-import './App.css';
+import Table from '../components/Table';
+import { addUser, wakeupUser } from '../reducers/Main'
+import './common.css';
 
 const mapStateToProps = state => (
     { table: state.table })

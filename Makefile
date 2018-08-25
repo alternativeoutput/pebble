@@ -19,6 +19,7 @@ create: checkvenv
 build:
 	. '$(BASE_ENV)/$(NAME_ENV)/bin/activate' \
 	    && npm install -g npm && npm install -g yarn && yarn install
+	@test -L src/index.js || ln -s indexMain.js src/index.js
 	@echo
 	@echo "Activate the VENV typing on terminal:"
 	@echo ". $(BASE_ENV)/$(NAME_ENV)/bin/activate"
