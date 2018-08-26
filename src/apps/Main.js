@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from '../components/Table';
 import { addUser, wakeupUser } from '../reducers/Main'
-import './common.css';
+import './Main.css';
 
 const mapStateToProps = state => (
     { table: state.table })
