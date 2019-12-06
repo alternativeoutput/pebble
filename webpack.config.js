@@ -3,6 +3,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
+const webpack = require('webpack');
 
 // const commonsPlugin = new webpack.optimize.CommonsChunkPlugin(
 //     'commons',  // Just name it
@@ -27,6 +28,7 @@ module.exports = (env, argv) => {
         demo04: './src/apps/demo04/indexMain.js',
         demo05: './src/apps/demo05/indexMain.js',
         demo06: './src/apps/demo06/indexMain.js',
+        demo07: './src/apps/demo07/indexMain.js',
     },
     mode: 'production',
     output: {
@@ -103,6 +105,15 @@ module.exports = (env, argv) => {
     devServer: {
       publicPath: "/",
       contentBase: "./public",
+      proxy: [{
+        context: ['/chat'],
+        target: 'http://localhost:9000',
+      },
+      {
+        context: ['/ws'],
+        target: 'http://localhost:9000',
+        ws: true,
+      }],
       hot: true
     },
     plugins: [
@@ -112,6 +123,12 @@ module.exports = (env, argv) => {
       //   favicon: "./public/favicon.ico",
       //   chunks: ['main']
       // }),
+
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+      }),
       new HtmlWebPackPlugin({
         template: "./public/demo.html",
         filename: "./demo01.html",
@@ -144,9 +161,15 @@ module.exports = (env, argv) => {
       }),
       new HtmlWebPackPlugin({
         template: "./public/demo.html",
-        filename: "./index.html",
+        filename: "./demo06.html",
         favicon: "./public/favicon.ico",
         chunks: ['demo06']
+      }),
+      new HtmlWebPackPlugin({
+        template: "./public/demo.html",
+        filename: "./index.html",
+        favicon: "./public/favicon.ico",
+        chunks: ['demo07']
       }),
       new InterpolateHtmlPlugin(HtmlWebPackPlugin, {
         PUBLIC_URL: publicUrl
